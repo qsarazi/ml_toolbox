@@ -86,7 +86,8 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)$(Platform)\$(Configuration)\ml_toolbox.dll" "$(SolutionDir)\..\unity\Assets\"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
