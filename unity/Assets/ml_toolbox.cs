@@ -19,5 +19,5 @@ public class ml_toolbox
     public static extern double linear_classify(IntPtr model, [In, MarshalAs(UnmanagedType.LPArray)] double[] inputs, int inputSize);
 
     [DllImport("ml_toolbox")]
-    public static extern double linear_predict(IntPtr model, double[] inputs, int inputSize);
+    public static extern double linear_predict(IntPtr model, [In, MarshalAs(UnmanagedType.LPArray)] double[] inputs, int inputSize);
 }
