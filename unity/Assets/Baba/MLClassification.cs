@@ -115,8 +115,8 @@ public class MLClassification : MonoBehaviour
                 // Créer Input
                 double[] input = new Double[2];
                 // Remplir Input
-                input[0] = (double) child.position.y;
-                input[1] = (double) child.position.z;
+                input[0] = (double)child.position.y;
+                input[1] = (double)child.position.z;
                 // Calcul résultat
                 double res = ml_toolbox.linear_classify(myModel, input, 2);
                 // Vérifie et Fit
@@ -173,7 +173,7 @@ public class MLClassification : MonoBehaviour
             {
                 if (PreColor) GO.GetComponent<Renderer>().material = Blue;
                 Y = UnityEngine.Random.Range(medsup, maxs);
-                GO.name = "Blue" + cpt+1;
+                GO.name = "Blue" + cpt + 1;
                 GO.tag = "Blue";
             }
             else if (cptb == 1)
@@ -251,7 +251,7 @@ public class MLClassification : MonoBehaviour
         }
     }
 
-    public void InstantiationHard()
+    public void InstantiationXOR()
     {
         // Création des sphere
         for (int cpt = 0; cpt < NbSphere; cpt++)
@@ -303,6 +303,50 @@ public class MLClassification : MonoBehaviour
         }
     }
 
+    public void InstantiationCross()
+    {
+        // Création des sphere
+        for (int cpt = 0; cpt < NbSphere; cpt++)
+        {
+            // Instantiate
+            GameObject GO = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            GO.transform.SetParent(this.transform);
+            // Making Color
+            int cptb = UnityEngine.Random.Range(0, NbColor);
+            float Y = 0f;
+            float Z = 0f;
+            if (cptb == 0)
+            {
+                if (PreColor) GO.GetComponent<Renderer>().material = Blue;
+                if(UnityEngine.Random.Range(0, 2) == 1)Y = UnityEngine.Random.Range(-15f, -14f);
+                else Y = UnityEngine.Random.Range(14f, 15f);
+                if (UnityEngine.Random.Range(0, 2) == 1) Z = UnityEngine.Random.Range(-MaxZ, -MaxZ+1f);
+                else Z = UnityEngine.Random.Range(MaxZ-1f, MaxZ);
+                GO.name = "Blue" + cpt + 1;
+                GO.tag = "Blue";
+            }
+            else if (cptb == 1)
+            {
+                if (PreColor) GO.GetComponent<Renderer>().material = Red;
+                Y = UnityEngine.Random.Range(-15f, 15f);
+                Z = UnityEngine.Random.Range(-MaxZ, MaxZ);
+                while (Z < -MaxZ+1 && (Y < -14f || Y > 14f))
+                {
+                    Y = UnityEngine.Random.Range(-15f, 15f);
+                    Z = UnityEngine.Random.Range(-MaxZ, MaxZ);
+                }
+                while (Z > MaxZ-1 && (Y < -14f || Y > 14f))
+                {
+                    Y = UnityEngine.Random.Range(-15f, 15f);
+                    Z = UnityEngine.Random.Range(-MaxZ, MaxZ);
+                }
+                GO.name = "Red" + cpt + 1;
+                GO.tag = "Red";
+            }
+            GO.transform.position = new Vector3(0f, Y, Z);
+        }
+    }
+
     public void InstantiationSimple()
     {
         // Création des sphere
@@ -321,7 +365,7 @@ public class MLClassification : MonoBehaviour
             }
             if (cptb == 0)
             {
-                if(PreColor) GO.GetComponent<Renderer>().material = Blue;
+                if (PreColor) GO.GetComponent<Renderer>().material = Blue;
                 Y = UnityEngine.Random.Range(0.5f, 15f);
                 Z = UnityEngine.Random.Range(-MaxZ, -0.5f);
                 GO.name = "Blue" + cpt + 1;
