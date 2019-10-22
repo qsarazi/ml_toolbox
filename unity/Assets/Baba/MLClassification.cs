@@ -31,10 +31,18 @@ public class MLClassification : MonoBehaviour
         {
             Application.Quit();
         }
-        // On crée quand on appui sur A
-        if (Input.GetKeyDown(KeyCode.A))
+    }
+
+    public void Classify()
+    {
+
+    }
+
+    public void ReInit()
+    {
+        foreach (Transform child in this.transform)
         {
-            Instantiation();
+            Destroy(child.gameObject);
         }
     }
 
@@ -61,7 +69,7 @@ public class MLClassification : MonoBehaviour
                 GO.GetComponent<Renderer>().material = Green;
             }
             // Decalage en Z
-            GO.transform.position = new Vector3(0, 0, (-NbSphere / 2) + cpt);
+            GO.transform.position = new Vector3(0f, 0f, -(((float)NbSphere -1f) / 2f) + (float)cpt);
         }
     }
 }
