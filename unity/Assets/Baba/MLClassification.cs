@@ -15,6 +15,10 @@ public class MLClassification : MonoBehaviour
 
     public int NbColor = 2;
 
+    public int NbTraining = 100;
+
+    public float Pas = 0.001f;
+
     //private ml_toolbox MlTool;
 
     // Update is called once per frame
@@ -34,7 +38,7 @@ public class MLClassification : MonoBehaviour
             var model = ml_toolbox.linear_create_model(5);
             var input = new Double[5];
             var res = ml_toolbox.linear_classify(model, input, 5);
-            Debug.Log(res);
+            Debug.Log(child.gameObject.name + " : " + res);
             ml_toolbox.linear_remove_model(model);
         }
     }
@@ -67,19 +71,19 @@ public class MLClassification : MonoBehaviour
             {
                 GO.GetComponent<Renderer>().material = Blue;
                 Y = UnityEngine.Random.Range(7.5f, 15f);
-                GO.name = "Blue" + cpt;
+                GO.name = "Blue" + cpt+1;
             }
             else if (cptb == 1)
             {
                 GO.GetComponent<Renderer>().material = Red;
                 Y = UnityEngine.Random.Range(-15f, -7.5f);
-                GO.name = "Red" + cpt;
+                GO.name = "Red" + cpt + 1;
             }
             else
             {
                 GO.GetComponent<Renderer>().material = Green;
-                Y = UnityEngine.Random.Range(-7.5f, 7.5f);
-                GO.name = "Green" + cpt;
+                Y = UnityEngine.Random.Range(-7f, 7f);
+                GO.name = "Green" + cpt + 1;
             }
             // Decalage en Z
             GO.transform.position = new Vector3(0f, Y, -(((float)NbSphere - 1f)) + (float)cpt * 2);
@@ -104,14 +108,14 @@ public class MLClassification : MonoBehaviour
             if (cptb == 0)
             {
                 GO.GetComponent<Renderer>().material = Blue;
-                Y = UnityEngine.Random.Range(0, 15f);
-                GO.name = "Blue" + cpt;
+                Y = UnityEngine.Random.Range(0.5f, 15f);
+                GO.name = "Blue" + cpt + 1;
             }
             else if (cptb == 1)
             {
                 GO.GetComponent<Renderer>().material = Red;
-                Y = UnityEngine.Random.Range(-15f, 0f);
-                GO.name = "Red" + cpt;
+                Y = UnityEngine.Random.Range(-15f, -0.5f);
+                GO.name = "Red" + cpt + 1;
             }
             // Decalage en Z
             GO.transform.position = new Vector3(0f, Y, -(((float)NbSphere - 1f)) + (float)cpt*2);
@@ -136,12 +140,14 @@ public class MLClassification : MonoBehaviour
             if (cptb == 0)
             {
                 //GO.GetComponent<Renderer>().material = Blue;
-                Y = UnityEngine.Random.Range(0, 15f);
+                Y = UnityEngine.Random.Range(0.5f, 15f);
+                GO.name = "Blue" + cpt + 1;
             }
             else if (cptb == 1)
             {
                 //GO.GetComponent<Renderer>().material = Red;
-                Y = UnityEngine.Random.Range(-15f, 0f);
+                Y = UnityEngine.Random.Range(-15f, -0.5f);
+                GO.name = "Red" + cpt + 1;
             }
             // Decalage en Z
             GO.transform.position = new Vector3(0f, Y, -(((float)NbSphere - 1f)) + (float)cpt * 2);

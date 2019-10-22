@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
 {
     public Text TxtSphere;
     public Text TxtColor;
+    public Text TxtTrain;
 
     private MLClassification _mlClassification;
 
@@ -25,5 +26,15 @@ public class UIManager : MonoBehaviour
     {
         _mlClassification.NbColor = (int)val.value;
         TxtColor.text = "Couleurs : " + _mlClassification.NbColor;
+    }
+    public void SetNbTraining(Slider val)
+    {
+        _mlClassification.NbTraining = (int)val.value;
+        TxtColor.text = "Entrainements : " + _mlClassification.NbColor;
+    }
+    public void SetPas(Slider val)
+    {
+        _mlClassification.Pas = val.value;
+        TxtColor.text = "Pas : " + _mlClassification.NbColor;
     }
 }
