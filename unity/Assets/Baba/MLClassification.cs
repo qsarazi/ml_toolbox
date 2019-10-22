@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,14 +15,7 @@ public class MLClassification : MonoBehaviour
 
     public int NbColor = 2;
 
-    private ml_toolbox MlTool;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+    //private ml_toolbox MlTool;
 
     // Update is called once per frame
     void Update()
@@ -33,9 +27,13 @@ public class MLClassification : MonoBehaviour
         }
     }
 
-    public void Classify()
+    public void LaunchIA()
     {
-
+        var model = ml_toolbox.linear_create_model(5);
+        var input = new Double[5];
+        var res = ml_toolbox.linear_classify(model, input, 5);
+        Debug.Log(res);
+        ml_toolbox.linear_remove_model(model);
     }
 
     public void ReInit()
@@ -55,22 +53,22 @@ public class MLClassification : MonoBehaviour
             GameObject GO = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             GO.transform.SetParent(this.transform);
             // Making Color
-            int cptb = Random.Range(0, NbColor);
+            int cptb = UnityEngine.Random.Range(0, NbColor);
             float Y = 0f;
             if (cptb == 0)
             {
                 GO.GetComponent<Renderer>().material = Blue;
-                Y = Random.Range(7.5f, 15f);
+                Y = UnityEngine.Random.Range(7.5f, 15f);
             }
             else if (cptb == 1)
             {
                 GO.GetComponent<Renderer>().material = Red;
-                Y = Random.Range(-15f, -7.5f);
+                Y = UnityEngine.Random.Range(-15f, -7.5f);
             }
             else
             {
                 GO.GetComponent<Renderer>().material = Green;
-                Y = Random.Range(-7.5f, 7.5f);
+                Y = UnityEngine.Random.Range(-7.5f, 7.5f);
             }
             // Decalage en Z
             GO.transform.position = new Vector3(0f, Y, -(((float)NbSphere - 1f)) + (float)cpt * 2);
@@ -95,12 +93,12 @@ public class MLClassification : MonoBehaviour
             if (cptb == 0)
             {
                 GO.GetComponent<Renderer>().material = Blue;
-                Y = Random.Range(0, 15f);
+                Y = UnityEngine.Random.Range(0, 15f);
             }
             else if (cptb == 1)
             {
                 GO.GetComponent<Renderer>().material = Red;
-                Y = Random.Range(-15f, 0f);
+                Y = UnityEngine.Random.Range(-15f, 0f);
             }
             // Decalage en Z
             GO.transform.position = new Vector3(0f, Y, -(((float)NbSphere - 1f)) + (float)cpt*2);
