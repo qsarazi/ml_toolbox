@@ -119,10 +119,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Mlp.cpp" />
     <ClCompile Include="ml_toolbox.cpp" />
     <ClCompile Include="Perceptron.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Mlp.h" />
     <ClInclude Include="Perceptron.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
