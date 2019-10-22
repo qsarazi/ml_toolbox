@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MLClassification : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class MLClassification : MonoBehaviour
     public Material Red;
 
     public Material Green;
+
+    public Dropdown Ddown;
 
     public int NbSphere = 3;
 
@@ -30,15 +33,36 @@ public class MLClassification : MonoBehaviour
 
     private IntPtr myModel;
 
-    //private ml_toolbox MlTool;
-
-    // Update is called once per frame
     void Update()
     {
         // Quitter l'appli
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
+        }
+    }
+
+    public void Init()
+    {
+        switch (Ddown.value)
+        {
+            case 0:
+                InstantiationSimple3();
+                break;
+            case 1:
+                InstantiationSimple50();
+                break;
+            case 2:
+                InstantiationSoft50();
+                break;
+            case 3:
+                InstantiationXOR4();
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+
         }
     }
 
@@ -141,7 +165,7 @@ public class MLClassification : MonoBehaviour
         }
     }
 
-    public void Instantiation()
+    public void OldInstantiation()
     {
         float mins = 0, medsup = 0, medsinf = 0, maxs = 0;
         switch (NbColor)
@@ -196,7 +220,7 @@ public class MLClassification : MonoBehaviour
         }
     }
 
-    public void InstantiationComplexe()
+    public void InstantiationSoft()
     {
         float mins = 0, medsup = 0, medsinf = 0, maxs = 0;
         switch (NbColor)
@@ -380,6 +404,239 @@ public class MLClassification : MonoBehaviour
                 GO.tag = "Red";
             }
             // Decalage en Z
+            GO.transform.position = new Vector3(0f, Y, Z);
+        }
+    }
+
+    public void InstantiationSimple3()
+    {
+        // Création des sphere
+        for (int cpt = 0; cpt < 3; cpt++)
+        {
+            // Instantiate
+            GameObject GO = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            GO.transform.SetParent(this.transform);
+            // Making Color
+            int cptb = 0;
+            float Y = 0f;
+            float Z = 0f;
+            if (cpt == 0)
+            {
+                cptb = 1;
+            }
+            else if (cpt == 1)
+            {
+                cptb = 0;
+            }
+            else
+            {
+                cptb = UnityEngine.Random.Range(0, NbColor);
+            }
+            if (cptb == 0)
+            {
+                if (PreColor) GO.GetComponent<Renderer>().material = Blue;
+                Y = UnityEngine.Random.Range(0.5f, 15f);
+                Z = UnityEngine.Random.Range(-MaxZ, -0.5f);
+                GO.name = "Blue" + cpt + 1;
+                GO.tag = "Blue";
+            }
+            else if (cptb == 1)
+            {
+                if (PreColor) GO.GetComponent<Renderer>().material = Red;
+                Y = UnityEngine.Random.Range(-15f, -0.5f);
+                Z = UnityEngine.Random.Range(0.5f, MaxZ);
+                GO.name = "Red" + cpt + 1;
+                GO.tag = "Red";
+            }
+            // Decalage en Z
+            GO.transform.position = new Vector3(0f, Y, Z);
+        }
+    }
+
+    public void InstantiationSimple50()
+    {
+        // Création des sphere
+        for (int cpt = 0; cpt < 50; cpt++)
+        {
+            // Instantiate
+            GameObject GO = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            GO.transform.SetParent(this.transform);
+            // Making Color
+            int cptb = 0;
+            float Y = 0f;
+            float Z = 0f;
+            if (cpt < 25)
+            {
+                cptb = 1;
+            }
+            if (cptb == 0)
+            {
+                if (PreColor) GO.GetComponent<Renderer>().material = Blue;
+                Y = UnityEngine.Random.Range(0.5f, 15f);
+                Z = UnityEngine.Random.Range(-MaxZ, -0.5f);
+                GO.name = "Blue" + cpt + 1;
+                GO.tag = "Blue";
+            }
+            else if (cptb == 1)
+            {
+                if (PreColor) GO.GetComponent<Renderer>().material = Red;
+                Y = UnityEngine.Random.Range(-15f, -0.5f);
+                Z = UnityEngine.Random.Range(0.5f, MaxZ);
+                GO.name = "Red" + cpt + 1;
+                GO.tag = "Red";
+            }
+            // Decalage en Z
+            GO.transform.position = new Vector3(0f, Y, Z);
+        }
+    }
+
+    public void InstantiationSoft50()
+    {
+        float mins = 0, medsup = 0, medsinf = 0, maxs = 0;
+        switch (NbColor)
+        {
+            case 2:
+                mins = -15f;
+                medsup = -1f;
+                medsinf = 1f;
+                maxs = 15f;
+                break;
+            case 3:
+                mins = -15f;
+                medsup = 5f;
+                medsinf = -5f;
+                maxs = 15f;
+                break;
+
+        }
+        // Création des sphere
+        for (int cpt = 0; cpt < 50; cpt++)
+        {
+            // Instantiate
+            GameObject GO = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            GO.transform.SetParent(this.transform);
+            // Making Color
+            int cptb = UnityEngine.Random.Range(0, NbColor);
+            float Y = 0f;
+            if (cptb == 0)
+            {
+                if (PreColor) GO.GetComponent<Renderer>().material = Blue;
+                Y = UnityEngine.Random.Range(medsup, maxs);
+                GO.name = "Blue" + cpt + 1;
+                GO.tag = "Blue";
+            }
+            else if (cptb == 1)
+            {
+                if (PreColor) GO.GetComponent<Renderer>().material = Red;
+                Y = UnityEngine.Random.Range(mins, medsinf);
+                GO.name = "Red" + cpt + 1;
+                GO.tag = "Red";
+            }
+            else
+            {
+                if (PreColor) GO.GetComponent<Renderer>().material = Green;
+                Y = UnityEngine.Random.Range(medsinf, medsup);
+                GO.name = "Green" + cpt + 1;
+                GO.tag = "Green";
+            }
+            // Decalage en Z
+            float Z = -(MaxZ) + ((float)cpt * 2 * (MaxZ + 1) / 50);
+            GO.transform.position = new Vector3(0f, Y, Z);
+        }
+    }
+
+    public void InstantiationXOR4()
+    {
+        // Création des sphere
+        for (int cpt = 0; cpt < 4; cpt++)
+        {
+            // Instantiate
+            GameObject GO = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            GO.transform.SetParent(this.transform);
+            // Making Color
+            int cptb = 0;
+            if (cpt < 2)
+            {
+                cptb = 1;
+            }
+            float Y = 0f;
+            float Z = 0f;
+            if (cptb == 0)
+            {
+                if (PreColor) GO.GetComponent<Renderer>().material = Blue;
+                if (cpt % 2 == 0)
+                {
+                    Y = UnityEngine.Random.Range(0.5f, MaxZ);
+                    Z = UnityEngine.Random.Range(-MaxZ, -0.5f);
+                }
+                else
+                {
+                    Y = UnityEngine.Random.Range(-MaxZ, -0.5f);
+                    Z = UnityEngine.Random.Range(0.5f, MaxZ);
+                }
+                GO.name = "Blue" + cpt + 1;
+                GO.tag = "Blue";
+            }
+            else if (cptb == 1)
+            {
+                if (PreColor) GO.GetComponent<Renderer>().material = Red;
+                if (cpt % 2 == 0)
+                {
+                    Y = UnityEngine.Random.Range(-15f, -0.5f);
+                    Z = UnityEngine.Random.Range(-MaxZ, -0.5f);
+                }
+                else
+                {
+                    Y = UnityEngine.Random.Range(0.5f, 15f);
+                    Z = UnityEngine.Random.Range(0.5f, MaxZ);
+                }
+                GO.name = "Red" + cpt + 1;
+                GO.tag = "Red";
+            }
+            GO.transform.position = new Vector3(0f, Y, Z);
+        }
+    }
+
+    public void InstantiationCross50()
+    {
+        // Création des sphere
+        for (int cpt = 0; cpt < 50; cpt++)
+        {
+            // Instantiate
+            GameObject GO = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            GO.transform.SetParent(this.transform);
+            // Making Color
+            int cptb = UnityEngine.Random.Range(0, NbColor);
+            float Y = 0f;
+            float Z = 0f;
+            if (cptb == 0)
+            {
+                if (PreColor) GO.GetComponent<Renderer>().material = Blue;
+                if (UnityEngine.Random.Range(0, 2) == 1) Y = UnityEngine.Random.Range(-15f, -14f);
+                else Y = UnityEngine.Random.Range(14f, 15f);
+                if (UnityEngine.Random.Range(0, 2) == 1) Z = UnityEngine.Random.Range(-MaxZ, -MaxZ + 1f);
+                else Z = UnityEngine.Random.Range(MaxZ - 1f, MaxZ);
+                GO.name = "Blue" + cpt + 1;
+                GO.tag = "Blue";
+            }
+            else if (cptb == 1)
+            {
+                if (PreColor) GO.GetComponent<Renderer>().material = Red;
+                Y = UnityEngine.Random.Range(-15f, 15f);
+                Z = UnityEngine.Random.Range(-MaxZ, MaxZ);
+                while (Z < -MaxZ + 1 && (Y < -14f || Y > 14f))
+                {
+                    Y = UnityEngine.Random.Range(-15f, 15f);
+                    Z = UnityEngine.Random.Range(-MaxZ, MaxZ);
+                }
+                while (Z > MaxZ - 1 && (Y < -14f || Y > 14f))
+                {
+                    Y = UnityEngine.Random.Range(-15f, 15f);
+                    Z = UnityEngine.Random.Range(-MaxZ, MaxZ);
+                }
+                GO.name = "Red" + cpt + 1;
+                GO.tag = "Red";
+            }
             GO.transform.position = new Vector3(0f, Y, Z);
         }
     }
