@@ -71,6 +71,7 @@ public class MLClassification : MonoBehaviour
 
     public void TrainIA()
     {
+        // On recréait le model si pas de model crée
         if (!ModelCreated) myModel = ml_toolbox.linear_create_model(2);
         ModelCreated = true;
         // Boucle d'entrainement entrainements
@@ -104,6 +105,7 @@ public class MLClassification : MonoBehaviour
                 int z = ml_toolbox.linear_fit_classification(myModel, 2, Pas, expectedvalue, res);
             }
         }
+        // Lance un test de l'IA
         LaunchIAResult();
     }
 
