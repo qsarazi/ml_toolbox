@@ -17,11 +17,10 @@ __declspec(dllexport) int linear_fit_regression(double *model, double *inputs, i
 	return 0;
 }
 
-__declspec(dllexport) int linear_fit_classification(double *model, double *inputs, int inputSize, double step, double expectedValue, double value) {
+__declspec(dllexport) void linear_fit_classification(double *model, double *inputs, int inputSize, double step, double expectedValue, double value) {
 	for (int i = 0; i < inputSize; ++i)
 		model[i] += step * (expectedValue - value) * inputs[i];
 	model[inputSize] += step * (expectedValue - value);
-	return 0;
 }
 
 __declspec(dllexport) double linear_classify(double *model, double *inputs, int inputSize) {
