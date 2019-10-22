@@ -189,6 +189,7 @@ public class MLClassification : MonoBehaviour
             // Making Color
             int cptb = 0;
             float Y = 0f;
+            float Z = 0f;
             if (cpt < NbSphere / 2)
             {
                 cptb = 1;
@@ -197,6 +198,7 @@ public class MLClassification : MonoBehaviour
             {
                 if(PreColor) GO.GetComponent<Renderer>().material = Blue;
                 Y = UnityEngine.Random.Range(0.5f, 15f);
+                Z = UnityEngine.Random.Range(-MaxZ, -0.5f);
                 GO.name = "Blue" + cpt + 1;
                 GO.tag = "Blue";
             }
@@ -204,11 +206,11 @@ public class MLClassification : MonoBehaviour
             {
                 if (PreColor) GO.GetComponent<Renderer>().material = Red;
                 Y = UnityEngine.Random.Range(-15f, -0.5f);
+                Z = UnityEngine.Random.Range(0.5f, MaxZ);
                 GO.name = "Red" + cpt + 1;
                 GO.tag = "Red";
             }
             // Decalage en Z
-            float Z = -(MaxZ) + ((float)cpt * 2 * (MaxZ+1) / NbSphere);
             GO.transform.position = new Vector3(0f, Y, Z);
         }
     }
