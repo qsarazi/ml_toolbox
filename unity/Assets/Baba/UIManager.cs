@@ -30,11 +30,11 @@ public class UIManager : MonoBehaviour
     public void SetNbTraining(Slider val)
     {
         _mlClassification.NbTraining = (int)val.value;
-        TxtColor.text = "Entrainements : " + _mlClassification.NbColor;
+        TxtColor.text = "Entrainements : " + _mlClassification.NbTraining;
     }
     public void SetPas(Slider val)
     {
         _mlClassification.Pas = val.value;
-        TxtColor.text = "Pas : " + _mlClassification.NbColor;
+        TxtColor.text = "Pas : " + _mlClassification.Pas;
     }
 }
