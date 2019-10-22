@@ -102,7 +102,7 @@ public class MLClassification : MonoBehaviour
                 // Calcul résultat
                 double res = ml_toolbox.linear_classify(myModel, input, 2);
                 // Vérifie et Fit
-                int z = ml_toolbox.linear_fit_classification(myModel, 2, Pas, expectedvalue, res);
+                ml_toolbox.linear_fit_classification(myModel, input, 2, Pas, expectedvalue, res);
             }
         }
         // Lance un test de l'IA
