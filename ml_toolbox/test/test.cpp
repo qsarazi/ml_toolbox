@@ -3,11 +3,13 @@
 
 #include "pch.h"
 #include <iostream>
+#include <random>
 
 int main()
 {
     std::cout << "Hello World!\n"; 
 
+	/*
 	std::cout << "begin" << std::endl;
 	double *model = linear_create_model(5);
 	std::cout << "toto" << std::endl;
@@ -19,6 +21,8 @@ int main()
 	std::cout << res << std::endl;
 	linear_remove_model(model);
 	std::cout << "end" << std::endl;
+	*/
+	return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

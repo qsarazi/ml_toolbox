@@ -21,9 +21,15 @@
     <ClCompile Include="Perceptron.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Mlp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Perceptron.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mlp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
