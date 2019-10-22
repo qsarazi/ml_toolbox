@@ -1063,12 +1063,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 856962533}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 869eddce68a0dbd46bbac07a1e36a021, type: 3}
+  m_Script: {fileID: 11500000, guid: 86929f9997463364ab0c544f0f7d2e4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Blue: {fileID: 2100000, guid: eaa6f99cfd109174087cc1f69aadf529, type: 2}
-  Red: {fileID: 2100000, guid: 1672c2d683a3657498fcae28fbf58f03, type: 2}
-  Green: {fileID: 2100000, guid: fd24a2e2264d07948a0fbd5a98581c1d, type: 2}
+  Blue: {fileID: 2100000, guid: 74aa827aaed02f74cb59a18455d9f06d, type: 2}
+  Red: {fileID: 2100000, guid: c6f022b61aa59d24eac2eca601da5c4e, type: 2}
+  Green: {fileID: 2100000, guid: 00c861f2e5cc29748966aad4273575d6, type: 2}
   NbSphere: 20
   NbColor: 2
 --- !u!114 &856962536
@@ -1080,7 +1080,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 856962533}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c12f8ca7dee215469e01c1a55ed398c, type: 3}
+  m_Script: {fileID: 11500000, guid: 78bc338841fd40440a50093edeac3461, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TxtSphere: {fileID: 931095019}

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,14 +9,21 @@ public class UIManager : MonoBehaviour
     public Text TxtSphere;
     public Text TxtColor;
 
+    private MLClassification _mlClassification;
+
+    private void Start()
+    {
+        _mlClassification = GetComponent<MLClassification>();
+    }
+
     public void SetNbSphere(Slider val)
     {
-        this.GetComponent<MLClassification>().NbSphere = (int)val.value;
-        TxtSphere.text = "Sphère : " + val;
+       _mlClassification.NbSphere = (int)val.value;
+        TxtSphere.text = "Sphère : " +  _mlClassification.NbSphere;
     }
     public void SetNbColor(Slider val)
     {
-        this.GetComponent<MLClassification>().NbColor = (int)val.value;
-        TxtColor.text = "Couleurs : " + val;
+        _mlClassification.NbColor = (int)val.value;
+        TxtColor.text = "Couleurs : " + _mlClassification.NbColor;
     }
 }
