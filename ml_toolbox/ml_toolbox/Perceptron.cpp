@@ -27,7 +27,7 @@ __declspec(dllexport) double linear_classify(double *model, double *inputs, int 
 	double sum = model[inputSize];
 
 	for (int i = 0; i < inputSize; ++i)
-		sum += model[i] * inputs[i];	
+		sum += model[i] * inputs[i];
 	return (sum > 0 ? 1.0 : -1.0);
 }
 

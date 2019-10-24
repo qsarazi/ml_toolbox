@@ -70,6 +70,79 @@ __declspec(dllexport) void mlp_remove_model(Mlp *model) {
 }
 
 __declspec(dllexport) int mlp_fit_regression(Mlp *model, double *inputs, int inputSize /**/);
-__declspec(dllexport) int mlp_fit_classification(Mlp *model, double *inputs, int inputSize /**/);
-__declspec(dllexport) double *mlp_predict(Mlp *model, double *inputs, int inputSize);
-__declspec(dllexport) double *mlp_classify(Mlp *model, double *inputs, int inputSize);
+
+//TODO recheck layer indices!!!! especcially check weight starting at 1
+__declspec(dllexport) int mlp_fit_classification(Mlp *model, double *expectedOutputs, int inputSize, double step) {
+	for (int j = 0; j < model->npl[model->layerCount - 1]; ++j) {
+		model->deltas[model->layerCount - 1][j] = (1 - model->outputs[model->layerCount - 1][j] * model->outputs[model->layerCount - 1][j]) * (model->outputs[model->layerCount - 1][j] - expectedOutputs[j]);
+	}
+
+	for (int l = model->layerCount - 1; l >= 1; --l) {
+		for (int i = 0; i < model->npl[l - 1]; ++i) {
+			double sum = 0.0;
+			for (int j = 0; j < model->npl[l]; ++j) {
+				sum += model->weights[l][i][j] * model->deltas[l][j];
+			}
+			model->deltas[l - 1][i] = (1 - model->outputs[l - 1][i] * model->outputs[l - 1][i]) * sum;
+		}
+	}
+
+	for (int l = 0; l < model->layerCount; ++l) {
+		for (int i = 0; i < model->npl[l]; ++i) {
+			for (int j = 0; j < model->npl[i + 1]; ++j) {
+				model->weights[l][i][j] -= step * model->outputs[l][i];
+			}
+		}
+	}
+}
+
+__declspec(dllexport) double *mlp_predict(Mlp *model, double *inputs, int inputSize) {
+	for (int j = 0; j < model->npl[0]; ++j) {
+		model->sums[0][j] = model->weights[0][model->npl[0]][j];
+		for (int i = 0; i < inputSize; ++i) {
+			model->sums[0][j] += inputs[i] * model->weights[0][i][j];
+		}
+		model->outputs[0][j] = tanh(model->sums[0][j]);
+	}
+
+	for (int l = 1; l < model->layerCount; ++l) {
+		for (int j = 0; j < model->npl[0]; ++j) {
+			model->sums[l][j] = model->weights[l][model->npl[l]][j];
+			for (int i = 0; i < model->npl[l - 1]; ++i) {
+				model->sums[l][j] += model->outputs[l - 1][i] * model->weights[l][i][j];
+			}
+			model->outputs[l][j] = tanh(model->sums[l][j]);
+		}
+	}
+
+	for (int j = 0; j < model->npl[0]; ++j) {
+		model->sums[model->layerCount - 1][j] = model->weights[model->layerCount - 1][model->npl[model->layerCount - 1]][j];
+		for (int i = 0; i < model->npl[model->layerCount - 2]; ++i) {
+			model->sums[model->layerCount - 1][j] += model->outputs[model->layerCount - 2][i] * model->weights[model->layerCount - 1][i][j];
+		}
+		model->outputs[model->layerCount - 1][j] = tanh(model->sums[model->layerCount - 1][j]);
+	}
+
+	return model->outputs[model->layerCount - 1];
+}
+
+__declspec(dllexport) double *mlp_classify(Mlp *model, double *inputs, int inputSize) {
+	for (int j = 0; j < model->npl[0]; ++j) {
+		model->sums[0][j] = model->weights[0][model->npl[0]][j];
+		for (int i = 0; i < inputSize; ++i) {
+			model->sums[0][j] += inputs[i] * model->weights[0][i][j];
+		}
+		model->outputs[0][j] = tanh(model->sums[0][j]);
+	}
+	
+	for (int l = 1; l < model->layerCount; ++l) {
+		for (int j = 0; j < model->npl[0]; ++j) {
+			model->sums[l][j] = model->weights[l][model->npl[l]][j];
+			for (int i = 0; i < model->npl[l - 1]; ++i) {
+				model->sums[l][j] += model->outputs[l - 1][i] * model->weights[l][i][j];
+			}
+			model->outputs[l][j] = tanh(model->sums[l][j]);
+		}
+	}
+	return model->outputs[model->layerCount - 1];
+}
