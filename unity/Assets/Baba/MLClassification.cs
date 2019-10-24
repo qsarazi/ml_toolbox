@@ -59,6 +59,7 @@ public class MLClassification : MonoBehaviour
                 InstantiationXOR4();
                 break;
             case 4:
+                InstantiationCross50();
                 break;
             case 5:
                 break;
@@ -566,13 +567,13 @@ public class MLClassification : MonoBehaviour
                 if (PreColor) GO.GetComponent<Renderer>().material = Blue;
                 if (cpt % 2 == 0)
                 {
-                    Y = UnityEngine.Random.Range(0.5f, MaxZ);
-                    Z = UnityEngine.Random.Range(-MaxZ, -0.5f);
+                    Y = 15f;
+                    Z = -MaxZ;
                 }
                 else
                 {
-                    Y = UnityEngine.Random.Range(-MaxZ, -0.5f);
-                    Z = UnityEngine.Random.Range(0.5f, MaxZ);
+                    Y = -15f;
+                    Z = MaxZ;
                 }
                 GO.name = "Blue" + cpt + 1;
                 GO.tag = "Blue";
@@ -582,13 +583,13 @@ public class MLClassification : MonoBehaviour
                 if (PreColor) GO.GetComponent<Renderer>().material = Red;
                 if (cpt % 2 == 0)
                 {
-                    Y = UnityEngine.Random.Range(-15f, -0.5f);
-                    Z = UnityEngine.Random.Range(-MaxZ, -0.5f);
+                    Y = -15f;
+                    Z = -MaxZ;
                 }
                 else
                 {
-                    Y = UnityEngine.Random.Range(0.5f, 15f);
-                    Z = UnityEngine.Random.Range(0.5f, MaxZ);
+                    Y = 15f;
+                    Z = MaxZ;
                 }
                 GO.name = "Red" + cpt + 1;
                 GO.tag = "Red";
