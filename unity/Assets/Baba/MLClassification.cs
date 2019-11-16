@@ -53,7 +53,7 @@ public class MLClassification : MonoBehaviour
 
     void InitBAckField()
     {
-        for (int x = (int) -MaxX+1; x < MaxX; x++)
+        for (int x = (int)-MaxX + 1; x < MaxX; x++)
         {
             for (int y = -15; y < 15; y++)
             {
@@ -69,7 +69,7 @@ public class MLClassification : MonoBehaviour
         Go.AddComponent<Image>().color = Color.gray;
         Go.GetComponent<RectTransform>().sizeDelta = new Vector2(2f, 2f);
         Go.transform.position = BackField.transform.position;
-        Go.GetComponent<RectTransform>().localPosition += new Vector3(20*x, 20*y,0);
+        Go.GetComponent<RectTransform>().localPosition += new Vector3(20 * x, 20 * y, 0);
     }
 
     public void Init()
@@ -189,13 +189,13 @@ public class MLClassification : MonoBehaviour
             // Créer Input
             double[] input = new Double[2];
             // Remplir Input
-            input[1] = (double)child.position.y/2;
-            input[0] = (double)child.position.x/2;
-            
+            input[1] = (double)child.position.y / 2;
+            input[0] = (double)child.position.x / 2;
+
             // Calcul résultat
             double res = ml_toolbox.linear_classify(myModel, input, 2);
             // Affichage Debug
-            Debug.Log(child.name + " : " + input[0] + "/" + input[1] + "/" + res);
+            //Debug.Log(child.name + " : " + input[0] + "/" + input[1] + "/" + res);
             switch (res)
             {
                 case -1:
@@ -210,10 +210,12 @@ public class MLClassification : MonoBehaviour
 
     public void TrainIA2()
     {
+        /*
         foreach (Transform child in this.transform)
         {
-            Debug.Log(child.name + " : " + child.position.x + "/" + child.position.y);
+           // Debug.Log(child.name + " : " + child.position.x + "/" + child.position.y);
         }
+        */
         // On recréait le model si pas de model crée
         if (!ModelCreated) myModel = ml_toolbox.linear_create_model(2);
         ModelCreated = true;
@@ -255,8 +257,16 @@ public class MLClassification : MonoBehaviour
 
     public void RemoveModel()
     {
+        if (!ModelCreated)
+        {
+            return;
+        }
         ml_toolbox.linear_remove_model(myModel);
         ModelCreated = false;
+        foreach (Transform child in BackField.transform)
+        {
+            child.gameObject.GetComponent<Image>().color = Color.gray;
+        }
     }
 
     public void ReInit()
@@ -265,6 +275,7 @@ public class MLClassification : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+        RemoveModel();
     }
 
     public void OldInstantiation()
@@ -284,7 +295,6 @@ public class MLClassification : MonoBehaviour
                 medsinf = -5f;
                 maxs = 15f;
                 break;
-
         }
         // Création des sphere
         for (int cpt = 0; cpt < NbSphere; cpt++)
@@ -398,12 +408,12 @@ public class MLClassification : MonoBehaviour
                 if (PreColor) GO.GetComponent<Renderer>().material = Blue;
                 if (cpt % 2 == 0)
                 {
-                    Y = UnityEngine.Random.Range(0.5f, MaxX);
+                    Y = UnityEngine.Random.Range(0.5f, 15f);
                     X = UnityEngine.Random.Range(-MaxX, -0.5f);
                 }
                 else
                 {
-                    Y = UnityEngine.Random.Range(-MaxX, -0.5f);
+                    Y = UnityEngine.Random.Range(-15f, -0.5f);
                     X = UnityEngine.Random.Range(0.5f, MaxX);
                 }
                 GO.name = "Blue" + cpt + 1;
@@ -444,10 +454,10 @@ public class MLClassification : MonoBehaviour
             if (cptb == 0)
             {
                 if (PreColor) GO.GetComponent<Renderer>().material = Blue;
-                if(UnityEngine.Random.Range(0, 2) == 1)Y = UnityEngine.Random.Range(-15f, -14f);
+                if (UnityEngine.Random.Range(0, 2) == 1) Y = UnityEngine.Random.Range(-15f, -14f);
                 else Y = UnityEngine.Random.Range(14f, 15f);
-                if (UnityEngine.Random.Range(0, 2) == 1) X = UnityEngine.Random.Range(-MaxX, -MaxX+1f);
-                else X = UnityEngine.Random.Range(MaxX-1f, MaxX);
+                if (UnityEngine.Random.Range(0, 2) == 1) X = UnityEngine.Random.Range(-MaxX, -MaxX + 1f);
+                else X = UnityEngine.Random.Range(MaxX - 1f, MaxX);
                 GO.name = "Blue" + cpt + 1;
                 GO.tag = "Blue";
             }
@@ -456,15 +466,15 @@ public class MLClassification : MonoBehaviour
                 if (PreColor) GO.GetComponent<Renderer>().material = Red;
                 Y = UnityEngine.Random.Range(-15f, 15f);
                 X = UnityEngine.Random.Range(-MaxX, MaxX);
-                while (X < -MaxX+1 && (Y < -14f || Y > 14f))
+                while (X < -MaxX + 2f && (Y < -13f || Y > 13f))
                 {
-                    Y = UnityEngine.Random.Range(-15f, 15f);
-                    X = UnityEngine.Random.Range(-MaxX, MaxX);
+                    Y = UnityEngine.Random.Range(-13f, 13f);
+                    //X = UnityEngine.Random.Range(-MaxX, MaxX);
                 }
-                while (X > MaxX-1 && (Y < -14f || Y > 14f))
+                while (X > MaxX - 2f && (Y < -13f || Y > 13f))
                 {
-                    Y = UnityEngine.Random.Range(-15f, 15f);
-                    X = UnityEngine.Random.Range(-MaxX, MaxX);
+                    Y = UnityEngine.Random.Range(-13f, 13f);
+                    //X = UnityEngine.Random.Range(-MaxX, MaxX);
                 }
                 GO.name = "Red" + cpt + 1;
                 GO.tag = "Red";
